@@ -9,9 +9,10 @@
 Level3/  
 │   ├─requirements.txt             # packages & libraries needed to work
 │   ├─ main.py  
-│   ├─ web_scrap.py                 # class OLXScraping  
+│   ├─ web_scrap.py                # class OLXScraping  
 │   ├─ savetogoogle.py  
 │   ├─ credentials.json
+│   ├─ OneAdv.py                   # for one ad
 ```
 ## SUMMARY
 
