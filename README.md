@@ -15,11 +15,11 @@ Level3/
 ```
 ## SUMMARY
 
-- create: token.json, data.csv, 'OLXScrap' spreadsheets.
+- create: token.json, Data.csv, 'OLXScrap' spreadsheets.
 
 <u>PROS</u>
 
-- [x] отримана часткова інформація, включаючи ID, ціну, місце розташування, час публікації та площу.
+- [x] отримана часткова інформація: link, ID, advertising link, price, location [city, region], date and time of publication, total area of the apartment
 
 <u>CONS</u>
 
