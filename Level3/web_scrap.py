@@ -1,7 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 
 
@@ -14,65 +12,38 @@ class OLXScraping:
 
     def scrape_data(self):
         self.driver.get(self.url)
-        advs = self.driver.find_elements(By.CLASS_NAME, "css-1sw7q4x")
+        main_link_element = self.driver.find_element(By.ID, 'ssr_canonical')
+        main_link = main_link_element.get_attribute('href')
 
-        advs_list = []
-        for adv in advs:
-            try:
-                id = (
-                    WebDriverWait(adv, 10)
-                    .until(
-                        EC.presence_of_element_located(
-                            (By.XPATH, './/div[@data-testid="l-card"]')
-                        )
-                    )
-                    .get_attribute("id")
-                    .strip()
-                )
-                price = (
-                    WebDriverWait(adv, 10)
-                    .until(
-                        EC.presence_of_element_located(
-                            (By.XPATH, ".//a/div/div/div[2]/div[1]/p")
-                        )
-                    )
-                    .text.strip()
-                )
-                location_and_time = (
-                    WebDriverWait(adv, 10)
-                    .until(
-                        EC.presence_of_element_located(
-                            (By.XPATH, ".//a/div/div/div[2]/div[3]/p")
-                        )
-                    )
-                    .text.strip()
-                )
+        ad_elements = self.driver.find_elements(By.XPATH, "//div[@data-cy='l-card' and @data-testid='l-card']")
 
-                location_parts = location_and_time.split(" - ")
-                location = location_parts[0].strip()
-                publish_time = location_parts[1].strip()
+        ad_data = []
+        try: 
+         for ad_element in ad_elements:
+           ad_link = ad_element.find_element(By.TAG_NAME, 'a').get_attribute('href')
+           ad_id = ad_element.get_attribute('id')
+        
+           ad_price = ad_element.find_element(By.XPATH, ".//p[@data-testid='ad-price']").text.strip()
+    
+           ad_loc = ad_element.find_element(By.XPATH, 
+                                         ".//p[@data-testid='location-date']").text.strip().split(' - ')
+           ad_city = ad_loc[0] # 'Район': ad_district
+           ad_date_time = ad_loc[1] if len(ad_loc) == 2 else None
 
-                area = (
-                    WebDriverWait(adv, 10)
-                    .until(
-                        EC.presence_of_element_located(
-                            (By.XPATH, ".//a/div/div/div[2]/div[3]/div")
-                        )
-                    )
-                    .text.strip()
-                )
-                adv_item = {
-                    "ID": id,
-                    "Price": price,
-                    "Location": location,
-                    "Publish_time": publish_time,
-                    "Area": area,
-                }
-                advs_list.append(adv_item)
-            except Exception as e:
-                print(f"Error: {e}")
+           ad_area = ad_element.find_element(By.XPATH, ".//span[contains(@class, 'css-643j0o')]").text.strip().split()
+           ad_area_numeric = ad_area[0] if len(ad_area) == 2 else None
 
-        return pd.DataFrame(advs_list)
+           ad_data.append({'Основне посилання': main_link, 
+                        'ID оголошення': ad_id, 
+                        'Посилання на оголошення': ad_link, 
+                        'Ціна': ad_price,
+                        'Місто': ad_city,
+                        'Дата і час публікації': ad_date_time, 
+                        'Загальна площа': ad_area_numeric})
+        except Exception as e:
+               print(f"Помилка: {e}") 
+        
+        return pd.DataFrame(ad_data)
 
     def quit_driver(self):
         self.driver.quit()

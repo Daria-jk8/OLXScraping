@@ -7,7 +7,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import main
 from web_scrap import OLXScraping
-
+import pandas as pd
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
 # The ID and range of a sample spreadsheet.
@@ -15,16 +15,13 @@ SPREADSHEET_ID = "1qg6A6ySbRXOs3RpkUGOKezYwbRKeQ6fHFLFgt2IgZBk"
 RANGE_NAME = "Sheet1!A1"
 
 
-def readcsv():
-    items = []
-    with open("data.csv", "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            item = line.strip().split(",")
-            items.append(item)
-    f.close()
-    return items
+CSV_FILE_PATH = "Data.csv"
 
+def readcsv():
+    df = pd.read_csv(CSV_FILE_PATH)
+    values = df.values.tolist()
+    header = df.columns.tolist()
+    return [header] + values
 
 def main():
     creds = None

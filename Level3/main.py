@@ -8,7 +8,7 @@ olx_scraper = OLXScraping(url, options=options)
 df = olx_scraper.scrape_data()
 print(df)
 
-filename = "data.csv"
+filename = "Data.csv"
 df.to_csv(filename, index=False)
 
 olx_scraper.quit_driver()
