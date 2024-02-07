@@ -13,6 +13,10 @@ Level3/
 │   ├─ savetogoogle.py  
 │   ├─ credentials.json
 │   ├─ OneAdv.py                   # for one ad
+|   ├─ EDA.ipynb                   
+|   ├─ EDA.py
+|   ├─ Data2.csv                  # місто | район
+|   ├─ Data.csv            
 │
 │─ README.md
 ```
