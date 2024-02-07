@@ -35,3 +35,5 @@ Level3/
 GitHub Repository [OLXScraping](https://github.com/Daria-jk8/OLXScraping)
 
 Google Sheet [OLXScrap](https://docs.google.com/spreadsheets/d/1qg6A6ySbRXOs3RpkUGOKezYwbRKeQ6fHFLFgt2IgZBk/edit?usp=sharing)
+
+Tableau Public [Sales of apartments](link)
