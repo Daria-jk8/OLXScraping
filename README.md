@@ -23,14 +23,14 @@ Level3/
 <u>PROS</u>
 
 - [x] отримана часткова інформація: link, ID, advertising link, price, location [city, region], date and time of publication, total area of the apartment.
-- [x] додана інфо для одного оголошення (ціна, поверх, поверховість, населений пункт, площа).
+- [x] додані дані для одного оголошення (ціна, поверх, поверховість, населений пункт, площа),
+- [x] виконано частковий Exploratory Data Analysis(EDA).
 
 <u>CONS</u>
 
 - [ ] парсинг лише 52 оголошень на одній сторінці; не реалізовано циклічість для переходу через кілька сторінок;
 - [ ] перехід із каталогу на nextpage(оголошення) за доп click();
-- [ ] не отримано дані: поверх, поверховість;
-- [ ] не зроблено Exploratory Data Analysis(EDA).
+- [ ] не отримано дані: поверх, поверховість.
 
 GitHub Repository [OLXScraping](https://github.com/Daria-jk8/OLXScraping)
 
